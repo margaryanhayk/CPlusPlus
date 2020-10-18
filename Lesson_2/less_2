@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    long long tbl0 = 0;
+    long long tbl1 = 0;
+    long long tbl2 = 0;
+    long long tbl3 = 0;
+
+    string str = "aAb Bf=345098`?";
+    for (char ch: str)
+        {
+            if (ch < 64){
+                unsigned long long corona = 1ULL << ch;
+                if (tbl0 & corona) {
+                    cout<<"repeated"<<endl;
+                    return 0;
+                 }
+                 else {
+                     tbl0 = tbl0 | corona ;
+                 }
+            }            
+            else if (ch < 128){
+                unsigned long long corona = 1ULL<< (ch-64);
+                if (tbl1 & corona) {
+                    cout<<"repeated"<<endl;
+                    return 0;
+                 }
+                 else {
+                     tbl1 = tbl1 | corona ;
+                 }   
+            }
+            else if (ch < 192){
+                unsigned long long corona = 1ULL<< (ch-128);
+                if (tbl2 & corona) {
+                    cout<<"repeated"<<endl;
+                    return 0;
+                 }
+                 else {
+                     tbl2 = tbl2 | corona ;
+                 }               
+            } 
+            else {
+                unsigned long long corona = 1ULL<< (ch-192);
+                if (tbl3 & corona) {
+                    cout<<"repeated"<<endl;
+                    return 0;
+                 }
+                 else {
+                     tbl3 = tbl3 | corona ;
+                 }               
+            } 
+        }
+    cout<<"its ok"<<endl;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int myFib_ev(int x){
+    int a = 1;
+    int b = 2;
+    int ev_sum = 0;
+    while (a < x){
+        if (a%2==0){
+            ev_sum = ev_sum + a;
+        }
+         if (b%2==0 && b<x){
+            ev_sum = ev_sum + b;
+        }
+        a = a+b;
+        b = a+b;
+    }
+    cout<<ev_sum<<endl;
+    return 0;
+    }
+
+int main()
+{
+  myFib_ev(4000000);  
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+using namespace std;
+#include <vector> 
+int main()
+{
+ int nums[] = {1,1,2,2,2,2,2,2,3,4,4,5,10,11,15};
+ vector<int> new_nums = {nums[0]};
+ int n = sizeof(nums)/sizeof(nums[0]);
+ int j = 0;
+ for (int i=1 ; i<n; ++i){
+    if(nums[i] != new_nums[j]){
+        new_nums.push_back(nums[i]);
+        j = j+1;
+    }
+ }
+     cout<<j+1<<endl;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
