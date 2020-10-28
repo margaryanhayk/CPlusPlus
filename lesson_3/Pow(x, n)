@@ -1,0 +1,52 @@
+#include<iostream>
+#include<math.h>
+
+class Solution {
+public:
+	double myPow(double x, int n) {
+		double result = x;
+
+		if (x < 1.000001 && x > 0.999999) { return 1; }
+		if (abs(x) < 1.000001 && abs(x) > 0.999999 && n % 2 != 0 && x < 0) { return -1; }
+		if (abs(x) < 1.000001 && abs(x) > 0.999999 && n % 2 == 0 && x < 0) { return 1; }
+		if (n == 0) { return 1; }
+		if (n == 1) { return x; }
+		if (n == -1) { return 1 / x; }
+		if (n > 0 && abs(x) > 1) {
+			for (int i = 2; i <= n; ++i) {
+				result = result * x;
+			}
+			return result;
+		}
+		if (n > 0 && abs(x) < 1) {
+			for (int i = 2; i <= n; ++i) {
+				if (abs(result) > 0.00001) {
+					result = result * x;
+				}
+				else { return 0; }
+			}
+			return result;
+		}
+		if (n < 0 && abs(x) <= 1) {
+			result = 1 / result;
+			x = 1 / x;
+			for (int i = 2; i <= abs(n); ++i) {
+				result = result * x;
+			}
+			return result;
+		}
+		if (n < 0 && abs(x)>1) {
+			result = 1 / result;
+			x = 1 / x;
+			if (n < -100) { return 0; }
+			for (int t = 2; t <= abs(n); ++t) {
+				if (abs(result) > 0.000001) {
+					result = result * x;
+				}
+				else { return 0; }
+			}
+			return result;
+		}
+		return 0;
+	}
+};
