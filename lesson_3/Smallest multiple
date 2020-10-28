@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+
+std::vector<std::vector<int>> getDividers(int x) {
+	std::vector<int> dividers;
+	std::vector<int> dividers_new;
+	std::vector<int> counts;
+	for (int i = 2; i <= x; ++i) {
+		int cup = 0;
+		while (x % i == 0) {
+			dividers.push_back(i);
+			x = x / i;
+			++cup;
+		}
+		if (cup != 0) {
+			counts.push_back(cup);
+			dividers_new.push_back(dividers[dividers.size()-1]);
+		}
+	}
+	return { dividers_new, counts };
+}
+
+int min_value(int x) {
+	std::vector<int> sexan;
+	for (int i = 0; i <= x; ++i) {
+		sexan.push_back(0);
+	}
+	for (int k = 2; k <= x; ++k) {
+		std::vector<std::vector<int>> obshi = getDividers(k);
+		for (int i = 0; i < obshi[0].size(); ++i) {
+			if (sexan[obshi[0][i]] < obshi[1][i])
+			{
+				sexan[obshi[0][i]] = obshi[1][i];
+			}
+		}
+	}
+	int sum = 1;
+	for (int i = 1; i <= x; ++i) {
+		sum *= pow(i, sexan[i]);
+	}
+	std::cout << sum << std::endl;
+	return sum;
+}
+int main()
+{ 
+	min_value(20);
+}
+
+
