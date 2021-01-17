@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+class MemberOfTheOrchestra
+{
+public:
+	MemberOfTheOrchestra() = default;
+	virtual ~MemberOfTheOrchestra() {
+
+	}
+	virtual void play() = 0;
+};
+
+class Violinist : public MemberOfTheOrchestra
+{
+public:
+	Violinist() = default;
+	virtual ~Violinist() {
+
+	}
+	virtual void play() override {
+		std::cout << "I am violinist, and I play violin" << std::endl;
+	}
+};
+
+class Pianist : public MemberOfTheOrchestra
+{
+	public:
+	Pianist() = default;
+	virtual ~Pianist() {
+
+	}
+	virtual void play() override {
+		std::cout << "I am pianist, and I play piano" << std::endl;
+	}
+};
+MemberOfTheOrchestra* getAllMusicians(std::string kind)
+{
+	if (kind == "dashnakahar") {
+		MemberOfTheOrchestra* ptr = new Pianist;
+		return ptr;
+	}
+	if (kind == "jutakahar") {
+		MemberOfTheOrchestra* ptr = new Violinist;
+		return ptr;
+	}
+}
+
+int main()
+{
+	getAllMusicians("dashnakahar")->play();
+	getAllMusicians("jutakahar")->play();
+}
