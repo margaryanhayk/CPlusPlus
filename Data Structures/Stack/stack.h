@@ -11,7 +11,6 @@ template <typename T>
 class Stack {
 public:
 	Stack() = default;
-	//Stack(const Stack& rhs);
 	~Stack() = default;
 public:
 	bool push(T x);
