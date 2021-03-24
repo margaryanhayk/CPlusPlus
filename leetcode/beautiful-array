@@ -1,0 +1,33 @@
+class Solution {
+public:
+    std::vector<int> beautifulArray(int N) {
+        std::vector<int> input;
+        for (int x = 1; x <= N; ++x) {
+            input.push_back(x);
+        }
+        return beautifulArray(input);
+    }
+    std::vector<int> beautifulArray(std::vector<int> inp) {
+        if (inp.size() == 1) {
+            return inp;
+        }
+        std::vector<int> final;
+        std::vector<int> left;
+        std::vector<int> right;
+        for (int i = 0; i < inp.size(); i = i + 2) {
+            left.push_back(inp[i]);
+        }
+        for (int i = 1; i < inp.size(); i = i + 2) {
+            right.push_back(inp[i]);
+        }
+        left = beautifulArray(left);
+        right = beautifulArray(right);
+        for (int i = 0; i < left.size(); ++i) {
+            final.push_back(left[i]);
+        }
+        for (int i = 0; i < right.size(); ++i) {
+            final.push_back(right[i]);
+        }
+        return final;
+    }
+};
