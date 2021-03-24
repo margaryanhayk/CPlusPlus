@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxProfit(std::vector<int>& prices) {
+        if (prices.size() == 1) {
+            return 0;
+        }
+        else {
+            std::vector<int> left;
+            std::vector<int> right;
+            for (int i = 0; i < prices.size() / 2; ++i) {
+                left.push_back(prices[i]);
+            }
+            for (int i = prices.size() / 2; i < prices.size(); ++i) {
+                right.push_back(prices[i]);
+            }
+            int left_value = maxProfit(left);
+            int right_value = maxProfit(right);
+            int left_min = left[0] ;
+            int right_max = right[0];
+            for (int i = 0; i < left.size(); ++i) {
+                left_min = std::min(left_min, left[i]);
+            }
+            for (int i = 0; i < right.size(); ++i) {
+                right_max = std::max(right_max, right[i]);
+            }
+            int x = std::max(0, right_max - left_min);
+            int max_1 = std::max({ x,left_value,right_value });
+            return max_1;
+        }
+    }
+};
