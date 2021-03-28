@@ -1,0 +1,60 @@
+class Solution {
+public:
+	void Merge(std::vector<int>& arr, int l, int m, int r) {
+		std::vector<int> left;
+		std::vector<int> right;
+		for (int i = l; i <= m; ++i) {
+			left.push_back(arr[i]);
+		}
+		for (int i = m + 1; i <= r; ++i) {
+			right.push_back(arr[i]);
+		}
+		int i = 0, j = 0;
+		while (i <= m - l && j < r - m) {
+			if (left[i] < right[j]) {
+				arr[l + i + j] = left[i];
+				++i;
+			}
+			else {
+				arr[l + i + j] = right[j];
+				++j;
+			}
+		}
+		while (j < r - m) {
+			arr[l + i + j] = right[j];
+			++j;
+		}
+		while (i + l <= m) {
+			arr[l + i + j] = left[i];
+			++i;
+		}
+	}
+
+	void MergeSort(std::vector<int>& arr, int l, int r) {
+		if (l >= r) {
+			return;
+		}
+		else {
+			int m = (r + l) / 2;
+			MergeSort(arr, l, m);
+			MergeSort(arr, m + 1, r);
+			Merge(arr, l, m, r);;
+		}
+	}
+
+    int maximumGap(std::vector<int>& nums) {
+		int size = nums.size();
+
+		if (size < 2) {
+			return 0;
+		}
+		MergeSort(nums, 0, size-1);
+		int max_delta;
+		for (int i = 0; i < size - 1; ++i) {
+			if (nums[i + 1] - nums[i] > max_delta) {
+				max_delta = nums[i + 1] - nums[i];
+			}
+		}
+		return max_delta;
+    }
+};
