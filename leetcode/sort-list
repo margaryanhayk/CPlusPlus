@@ -1,0 +1,57 @@
+ class Solution {
+ public:
+
+     ListNode* sortList(ListNode* head) { 
+        sortListRec(&head);
+        return head;
+     }
+
+     void sortListRec(ListNode** head_main) {
+        
+         ListNode* head = *head_main;
+         if (!head || !head->next) {
+             return ;
+         }
+         ListNode* part1;
+         ListNode* part2;
+         divideList(head, &part1, &part2);
+         sortListRec(&part1);
+         sortListRec(&part2);
+         *head_main = mergeTwoLists(part1, part2);
+     }
+     void divideList(ListNode* head, ListNode** l1, ListNode** l2) {
+         ListNode* fast = head->next;
+         ListNode* slow = head;
+         if (fast == nullptr) {
+             return;
+         }
+         while (fast != nullptr) {
+             fast = fast->next;
+             if (fast) {
+                 slow = slow->next;
+                 fast = fast->next;
+             }
+         }
+         *l2 = slow->next;
+         slow->next = nullptr;
+         *l1 = head;
+     }
+     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+         ListNode* result = nullptr;
+         if (!l1) {
+             return l2;
+         }
+         if (!l2) {
+             return l1;
+         }
+         if (l1->val > l2->val) {
+             result = l2;
+             l2->next = mergeTwoLists(l1, l2->next);
+         }
+         else {
+             result = l1;
+             l1->next = mergeTwoLists(l2, l1->next);
+         }
+         return result;
+     }
+ };
