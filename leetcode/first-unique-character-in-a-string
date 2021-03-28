@@ -1,0 +1,18 @@
+//O(n)
+class Solution {
+public:
+    int firstUniqChar(std::string s) {
+        const int MAX_SIZE = 256;
+        const int s_length = s.length();
+        int list[MAX_SIZE] = { 0 };
+        for (int ix = 0; ix < s_length; ++ix) {
+            ++list[int(s[ix])];
+        }
+        for (int ix = 0; ix < s_length; ++ix) {
+            if (list[int(s[ix])] == 1) {
+                return ix;
+            }
+        }
+        return -1;
+    }
+};
