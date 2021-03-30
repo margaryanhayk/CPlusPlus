@@ -1,0 +1,17 @@
+// Given the root of a binary tree, invert the tree, and return its root.
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root){
+            std::swap(root->left,root->right);
+            if(root->left){
+                invertTree(root->left);
+            }
+            if(root->right){
+                invertTree(root->right);            
+            }
+        }
+        return root;
+    }
+};
