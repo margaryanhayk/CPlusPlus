@@ -1,0 +1,23 @@
+//Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+class Solution {
+public:
+    const double maxi = 2147483648;
+    const double mini = -2147483650;
+    bool final = true;
+    bool isValidBST(TreeNode* root) {
+        if (!root) { return true; }
+        isValidBST(root, mini, maxi);
+        return final;
+    }
+    void isValidBST(TreeNode* root, double min, double max) {
+        if (root->val > min && root->val < max) {
+            if (root->left) { isValidBST(root->left, min , root->val); }
+            if (root->right) { isValidBST(root->right, root->val, max); }
+        }
+        else {
+            final = false;
+            return;
+        }
+    }
+};
