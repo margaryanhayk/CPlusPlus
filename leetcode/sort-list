@@ -1,4 +1,7 @@
- class Solution {
+//Given the head of a linked list, return the list after sorting it in ascending order.
+
+
+class Solution {
  public:
 
      ListNode* sortList(ListNode* head) { 
