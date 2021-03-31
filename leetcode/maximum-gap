@@ -1,3 +1,5 @@
+//Given an integer array nums, return the maximum difference between two successive elements in its sorted form. If the array contains less than two elements, return 0.
+
 class Solution {
 public:
 	void Merge(std::vector<int>& arr, int l, int m, int r) {
