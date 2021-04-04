@@ -6,46 +6,44 @@
  const int ascii_delta = 97;
  class Trie {
  public:
-     Trie* character[characters_count];
+     Trie* m_character[characters_count];
      bool m_is_leaf;
  public:
      Trie() {
-         Trie* character[characters_count];
          for (int ix = 0; ix < characters_count; ++ix) {
-             this->character[ix] = nullptr;
+             this->m_character[ix] = nullptr;
          }
          this->m_is_leaf = false;
      }
-
-     void insert(std::string word) {
+     void insert(const std::string & word) {
          Trie* current = this;
          for (int ix = 0; ix < word.length(); ++ix) {
-             if (current->character[word[ix] - ascii_delta] == nullptr) {
-                 current->character[word[ix] - ascii_delta] = new Trie();
+             if (!current->m_character[word[ix] - ascii_delta]) {
+                 current->m_character[word[ix] - ascii_delta] = new Trie();
              }
-             current = current->character[word[ix] - ascii_delta];
+             current = current->m_character[word[ix] - ascii_delta];
          }
          current->m_is_leaf = true;
      }
 
-     bool search(std::string word) {
+     bool search(const std::string & word) {
          Trie* traverse = this;
          for (int ix = 0; ix < word.length(); ++ix) {
-             if (traverse->character[word[ix] - ascii_delta] == nullptr) {
+             if (!traverse->m_character[word[ix] - ascii_delta]) {
                  return false;
              }
-             traverse = traverse->character[word[ix] - ascii_delta];
+             traverse = traverse->m_character[word[ix] - ascii_delta];
          }
          return traverse->m_is_leaf;
      }
 
-     bool startsWith(std::string prefix) {
+     bool startsWith(const std::string & prefix) {
          Trie* traverse = this;
          for (int ix = 0; ix < prefix.length(); ++ix) {
-             if (traverse->character[prefix[ix] - ascii_delta] == nullptr) {
+             if (traverse->m_character[prefix[ix] - ascii_delta] == nullptr) {
                  return false;
              }
-             traverse = traverse->character[prefix[ix] - ascii_delta];
+             traverse = traverse->m_character[prefix[ix] - ascii_delta];
          }
          return true;
      }
