@@ -1,0 +1,17 @@
+// Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+class Solution {
+public:
+    std::vector<int> values;
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(root){
+            if(root->left){postorderTraversal(root->left);}
+            if(root->right){postorderTraversal(root->right);}
+            values.push_back(root->val);
+        }
+        else{
+            return values;
+        }
+        return values;
+    }
+};
