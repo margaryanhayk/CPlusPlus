@@ -1,0 +1,27 @@
+#include <iostream>
+struct Student {
+    int age;
+    int avg;
+    int max;
+};
+template <typename T>
+bool Max(const Student& s, T key) {
+    return (s.max == key);
+}
+template <typename T>
+bool Age(const Student& s, T key ) {
+    return (s.age == key);
+}
+template <typename T>
+bool Avg(const Student& s, T key) {
+    return (s.avg == key);
+}
+template <typename Iter, typename T>
+auto find(Iter begin, Iter end, T key, bool (*pointerToFunction)(const Student&, T) ) {
+    for (; begin != end; ++begin) {
+        if (pointerToFunction( *begin,key)) {
+            return begin;
+        }
+    }
+    return end;
+}
