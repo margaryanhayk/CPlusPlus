@@ -1,0 +1,44 @@
+#include <iostream>
+#include <map>
+#include <vector>
+
+namespace {
+	int sum(int a, int b) {
+		return a + b;
+	}
+	int mul(int a, int b) {
+		return a * b;
+	}
+	int divide(int a, int b) {
+		return a * b;
+	}
+	int sub(int a, int b) {
+		return a - b;
+	}
+}
+class Calculator {
+public:
+	Calculator() = default;
+
+	int operator()(int a, char ch, int b) {
+		const auto it = m_calc.find(ch);
+		if (it != m_calc.end())
+		{
+			return it->second(a, b);
+		}
+	}
+private:
+	std::map<char, int(*)(int, int)> m_calc
+	{
+		{'+', &sum},
+		{'-', &sub},
+		{'/', &divide},
+		{'*', &mul}
+	};
+};
+
+int main()
+{
+	Calculator ob;
+	std::cout<<ob(5, '-', 2);
+}
