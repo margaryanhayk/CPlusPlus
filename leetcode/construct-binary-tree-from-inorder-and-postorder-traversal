@@ -28,7 +28,7 @@ public:
         for (int i = 0; i < root_index_inorder; ++i) {
             left.push_back(inorder[i]);
         }
-        for (int i = root_index_inorder+1; i < inorder.size(); ++i) {
+        for (int i = root_index_inorder + 1; i < inorder.size(); ++i) {
             right.push_back(inorder[i]);
         }
         if (right.size()) {
@@ -41,6 +41,9 @@ public:
         if (left.size()) {
             postorder.pop_back();
             root->left = buildTree(left, postorder);
+        }
+        else {
+            root->left = nullptr;
         }
         return root;
     }
