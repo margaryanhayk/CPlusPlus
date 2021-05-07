@@ -38,7 +38,7 @@ void serialize(std::vector<Person> vec_person) {
 std::vector<std::string> stringToVector(std::string line) {
 	std::vector<std::string> vec;
 	std::string delimiter = " ";
-	size_t pos = 0;
+	int pos = 0;
 	std::string token;
 	while ((pos = line.find(delimiter)) != std::string::npos) {
 		token = line.substr(0, pos);
@@ -49,7 +49,7 @@ std::vector<std::string> stringToVector(std::string line) {
 	return vec;
 }
 
-void deserial(std::string line, std::vector<Person>& vec_person, int & index) {
+void deserial(std::string line, std::vector<Person>& vec_person, int& index) {
 	if (line == "----") {
 		Person p1;
 		vec_person.push_back(p1);
