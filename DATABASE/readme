@@ -3,5 +3,6 @@
 ///		read   {example : read entity: person , OR read entity: person where age: 18}
 ///		update {example : update entity: person from age: 19 to 32}
 ///		delete {example : delete entity: person where age: 18}
-///		insert {insert entity: person age: 22}
-///		drop   {drop entity: person}
+///		insert {example : insert entity: person age: 22}
+///		drop   {example : drop entity: person}
+//    exit 
