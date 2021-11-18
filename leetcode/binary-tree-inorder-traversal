@@ -2,16 +2,14 @@
 
 class Solution {
 public:
-        std::vector<int> values;
-        vector<int> inorderTraversal(TreeNode* root) {
-            if(root){
-                if(root->left){inorderTraversal(root->left);}
-                values.push_back(root->val);
-                if(root->right){inorderTraversal(root->right);}          
-            }else{
-                return values;
-            }
-            return values;
-         }
-
+    std::vector<int> values;
+    vector<int> inorderTraversal(TreeNode* root) {
+        if(root)
+        {
+            inorderTraversal(root->left);
+            values.push_back(root->val);
+            inorderTraversal(root->right);    
+        }
+        return values;
+    }
 };
