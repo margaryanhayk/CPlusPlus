@@ -1,0 +1,11 @@
+//Given an integer x, return true if x is palindrome integer.
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        std::string a = std::to_string(x);
+        std::string b = a;
+        std::reverse(b.begin(),b.end());
+        return a.compare(b) ? 0 : 1;
+    }
+};
