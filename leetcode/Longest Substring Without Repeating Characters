@@ -1,0 +1,27 @@
+Given a string s, find the length of the longest substring without repeating characters.
+
+class Solution {
+public:
+	int lengthOfLongestSubstring(std::string s) {
+		int res = 0, i = 0, j = 0;
+		std::set<char> set;
+		while (j < s.length())
+		{
+			if (set.find(s[j]) == set.end())
+			{
+				set.insert(s[j]);
+				res = std::max(res, (j - i + 1));
+				++j;
+			}
+			else
+			{
+				while ((j != i) && set.find(s[j]) != set.end())
+				{
+					set.erase(s[i]);
+					++i;
+				}
+			}
+		}
+		return res;
+	}
+};
