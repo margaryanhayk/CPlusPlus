@@ -1,32 +1,26 @@
 // Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
-class Solution {
-public:
-    std::vector<int> final;
-    std::vector<std::vector<int>> fin;
-    std::vector<std::vector<int>> levelOrder(TreeNode* root) {
-        if (root) {
-        std::queue<TreeNode*> qyu;
-            qyu.push(root);
-            while (!qyu.empty()) {
-                std::vector<int> final;
-                int size = qyu.size();
-                for (int ix = 0; ix < size; ++ix) {
-                    TreeNode* node = qyu.front();
-                    if (node->left) {
-                        qyu.push(node->left);
-                    }
-                    if (node->right) {
-                        qyu.push(node->right);
-                    }
-                    final.push_back(qyu.front()->val);
-                    qyu.pop();
-                }
-                if (final.size()) { fin.push_back(final); }
-            }
-            if (final.size()) { fin.push_back(final); }
-            return fin;
-        }
-        else { return fin; }
-    }
-};
+ class Solution {
+ public:
+	 std::vector<std::vector<int>> result;
+	 std::vector<std::vector<int>> levelOrder(TreeNode* root) {
+		 if (!root) { return result; }
+		 std::queue<TreeNode*> q;
+		 q.push(root);
+		 while (!q.empty())
+		 {
+			 std::vector<int> level;
+			 int size = q.size();
+			 for (int ix = 0; ix < size; ++ix)
+			 {
+				 TreeNode* tmp = q.front();
+				 if (tmp->left) { q.push(tmp->left); }
+				 if (tmp->right) { q.push(tmp->right); }
+				 level.push_back(tmp->val);
+				 q.pop();
+			 }
+			 result.push_back(level);
+		 }
+		 return result;
+	 }
+ };
