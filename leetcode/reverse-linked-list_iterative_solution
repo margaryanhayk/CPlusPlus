@@ -15,11 +15,11 @@ public:
     ListNode* reverseList(ListNode* head) {
         ListNode* r = nullptr;
         ListNode* q = nullptr;
-        ListNode* p = head;
-        while(p){
+        while(head)
+        {
             r = q;
-            q = p;
-            p = p->next;
+            q = head;
+            head = head->next;
             q->next = r;
         }
         return q;
