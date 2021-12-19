@@ -3,18 +3,14 @@
 
 class Solution {
 public:
-    int removeDuplicates(std::vector<int>& nums) {
-        std::vector<int>::iterator i = nums.begin();
-        if (nums.size() == 0) {
-            return nums.size();
-        }
-        while (i + 1 < nums.end()) {
-            if (*i == *(i + 1)) {
-                nums.erase(i + 1);
-            }
-            else {
-                ++i;
-            }
+    int removeDuplicates(vector<int>& nums) {
+        auto begin = nums.begin();
+        if(!nums.size()){return 0;}
+        while(begin < nums.end() -1)
+        {
+            if(*begin == *(begin+1))
+                nums.erase(begin+1);
+            else{++begin;}
         }
         return nums.size();
     }
