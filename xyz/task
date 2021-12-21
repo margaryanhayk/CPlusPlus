@@ -1,0 +1,55 @@
+class A
+{
+public:
+	template<typename T>
+	std::vector<T> f(const std::vector<T>& vec)
+	{
+		std::vector<T> new_vec = vec;
+		const int step = new_vec.size() / num_threads;
+		const int rest = new_vec.size() % num_threads;
+		for (int ix = 0; ix < num_threads; ++ix)
+		{
+			SomeFunction functor;
+			processors_.push_back(std::thread(std::ref(functor), new_vec.begin() + (ix * step), new_vec.begin() + ((ix + 1) * step)));
+			
+		}
+		if (rest)
+		{
+			SomeFunction functor;
+			processors_.push_back(std::thread(std::ref(functor), new_vec.end() - rest, new_vec.end()));
+		}
+		for (auto& t : processors_)
+		{
+			if (t.joinable()) { t.join(); }
+		}
+		return new_vec;
+	}
+private:
+	struct SomeFunction
+	{
+		const int k = 4;
+		void operator()(std::vector<int>::iterator start, std::vector<int>::iterator end)
+		{
+			for (auto it = start; it < end; ++it)
+			{
+				*it *= k;
+			}
+		}
+	};
+public:
+	static constexpr int num_threads = 8;
+private:
+	std::vector<std::thread> processors_;
+};
+
+int main()
+{
+	std::vector<int> vec = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 };
+	A a;
+	a.template f<int>(vec);
+	std::vector<int> v = a.f(vec);
+	for (auto ix : v)
+	{
+		std::cout << ix << std::endl;
+	}
+}
