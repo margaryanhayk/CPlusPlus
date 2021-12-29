@@ -1,0 +1,56 @@
+template <typename T>
+class share_ptr
+{
+private:
+	T* m_ptr;
+	int* m_counter;
+public:
+	share_ptr() :
+		m_ptr{ nullptr },
+		m_counter{new int(0)}
+		{}
+	share_ptr(T* res):
+		m_ptr{ res },
+		m_counter{ new int(1)}
+	{}
+	share_ptr(share_ptr& oth) :
+		m_ptr{ oth.m_ptr },
+		m_counter{ oth.m_counter }
+	{
+		*m_counter += 1;
+	}
+	share_ptr<T>& operator = (share_ptr& oth)
+	{
+		if (this == &oth) { return *this; }
+		if (*(this->m_counter) == 1)
+		{
+			delete this->m_ptr;
+			delete this->m_counter;
+		}
+		else
+		{
+			*(this->m_counter) -= 1;
+		}
+		this->m_ptr = oth.m_ptr;
+		this->m_counter = oth.m_counter;
+		*(this->m_counter) += 1;
+	
+	}
+	T* operator->() { return m_ptr; }
+	T& operator*() { return *m_ptr; }
+	
+	~share_ptr()
+	{
+		if ((*(this->m_counter)) == 1)
+		{
+			delete m_ptr;
+			delete m_counter;
+			m_ptr = nullptr;
+			m_counter = nullptr;
+		}
+		else
+		{
+			*m_counter -= 1;
+		}
+	}
+};
