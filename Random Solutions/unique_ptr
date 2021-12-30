@@ -1,0 +1,35 @@
+template <typename T>
+class uniqe_ptr
+{
+private:
+	T* m_ptr;
+public:
+	uniqe_ptr(T* res):
+		m_ptr{res}
+	{}
+	uniqe_ptr(uniqe_ptr&& oth) :
+		m_ptr{ std::move(oth.m_ptr) },
+		oth.m_ptr{nullptr}
+	{}
+	uniqe_ptr<T>& operator = (uniqe_ptr&& rhs)
+	{
+		if (this != &rhs)
+		{
+			delete m_ptr;
+			m_ptr = std::move(rhs.m_ptr);
+			rhs->m_ptr = nullptr;
+		}
+		return *this;
+	}
+	T* operator->() { return m_ptr; }
+	T& operator*() { return *m_ptr; }
+	~uniqe_ptr()
+	{
+		delete m_ptr;
+		m_ptr = nullptr;
+	}
+public:
+	uniqe_ptr<T>& operator = (uniqe_ptr& rhs) = delete;
+	uniqe_ptr(uniqe_ptr& oth) = delete;
+	uniqe_ptr() = delete;
+};
