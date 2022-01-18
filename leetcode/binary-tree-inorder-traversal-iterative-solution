@@ -1,22 +1,24 @@
+
 class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
-        stack<TreeNode*> st;
-        std::vector<int> result;
-        while((!st.empty())||(root))
+    std::vector<int> vec;
+    vector<int> inorderTraversal(TreeNode* root) {
+        std::stack<TreeNode*> cont;
+        while(!cont.empty()||(root))
         {
             if(root)
             {
-                st.push(root);
-                result.push_back(root->val);
+                cont.push(root);
                 root=root->left;
             }
             else
             {
-                root = st.top()->right;
-                st.pop();
+                root = cont.top();
+                cont.pop();
+                vec.push_back(root->val);
+                root = root->right;
             }
         }
-        return result;
+        return vec;
     }
 };
