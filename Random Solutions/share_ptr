@@ -21,21 +21,24 @@ public:
 	}
 	share_ptr<T>& operator = (share_ptr& oth)
 	{
-		if (this == &oth) { return *this; }
-		if (*(this->m_counter) == 1)
-		{
-			delete this->m_ptr;
-			delete this->m_counter;
+		if (this != &oth) 
+		{ 
+			if (*m_counter) == 1)
+			{
+				delete m_ptr;
+				delete m_counter;
+			}
+			else
+			{
+				*m_counter -= 1;
+			}
+			m_ptr = oth.m_ptr;
+			m_counter = oth.m_counter;
+			*m_counter += 1;
 		}
-		else
-		{
-			*(this->m_counter) -= 1;
-		}
-		this->m_ptr = oth.m_ptr;
-		this->m_counter = oth.m_counter;
-		*(this->m_counter) += 1;
-	
+		return *this;
 	}
+	
 	T* operator->() { return m_ptr; }
 	T& operator*() { return *m_ptr; }
 	
