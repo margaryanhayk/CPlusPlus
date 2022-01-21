@@ -9,8 +9,9 @@ public:
 	{}
 	uniqe_ptr(uniqe_ptr&& oth) :
 		m_ptr{ std::move(oth.m_ptr) },
-		oth.m_ptr{nullptr}
-	{}
+	{
+		oth.m_ptr = nullptr;
+	}
 	uniqe_ptr<T>& operator = (uniqe_ptr&& rhs)
 	{
 		if (this != &rhs)
